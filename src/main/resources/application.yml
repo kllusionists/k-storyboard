@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: storyboard
+  datasource:
+    dynamic:
+      primary: storyboard
+      strict: true
+      datasource:
+        storyboard:
+          url: jdbc:mysql://${db-ip}:3306/storyboard?autoRec&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+          username: root
+          password: Y5wroot
+          driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles:
+    active: dev
+#  mvc:
+#    static-path-pattern: /test/**
+#  web:
+#    resources:
+#      static-locations: /test/
+
+db-ip: localhost
+
+server:
+  port: 9000
+
+jwt-key-value: com.kuo.storyboard
+
+oauth2-server: http://localhost:9000
+
+security:
+  oauth2:
+    client:
+      client-id: ypm-consumer-v1
+      client-secret: ypm-consumer-v1-secret
+      user-authorization-uri: ${oauth2-server}/oauth/authorize
+      access-token-uri: ${oauth2-server}/oauth/token
+    resource:
+      jwt:
+        key-uri: ${oauth2-server}/oauth/token_key
+        key-value: yps.ypm.oauth
+      token-info-uri: ${oauth2-server}/oauth/check_token
+
+
+---
+# Dev
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+db-ip: localhost
+
+# 文件上传的服务器存放路径
+upload:
+  base:
+    server:
+      domain: http://192.168.10.19:5000/api/consumer/v1
+
+
+---
+# docker
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+db-ip: 172.16.142.199
+
+# 文件上传的服务器存放路径
+upload:
+  base:
+    server:
+      domain: http:/localhost/api
