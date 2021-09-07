@@ -2,10 +2,12 @@ package com.kuo.storyboard.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.kuo.storyboard.core.ErrorEnum;
 import com.kuo.storyboard.core.ServiceException;
 import com.kuo.storyboard.dto.UserDetailsDto;
 import com.kuo.storyboard.entity.SystemUser;
 import com.kuo.storyboard.mapper.SystemUserMapper;
+import com.kuo.storyboard.mapper.UserRoleMapper;
 import com.kuo.storyboard.service.ISystemUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,23 +24,20 @@ import javax.annotation.Resource;
 public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemUser> implements ISystemUserService {
 
     @Resource
-    private SystemUserMapper systemUserMapper;
+    private UserRoleMapper userRoleMapper;
 
     @Override
     public UserDetailsDto userDetails(String username) throws ServiceException {
         if (StringUtils.isBlank(username)) {
-            throw new ServiceException("用户名不能为空！");
+            throw new ServiceException(ErrorEnum.USERNAME_EMPTY);
         }
 
-//        UserDetailsDto userDetailsDto = userRoleMapper.getUserDetails(username);
-//        if (null == userDetailsDto) {
-//            throw new ServiceException(ErrorEnum.USERNAME_ERROR);
-//        }
-        UserDetailsDto result = new UserDetailsDto();
-        SystemUser systemUser = systemUserMapper.selectById(1);
-        result.setUserId(systemUser.getSysUserId());
-        result.setCellPhone(systemUser.getCellPhone());
-        result.setUserName(systemUser.getUserName());
+        UserDetailsDto result = userRoleMapper.getSystemUserInfo(username);
+
+        if (null == result) {
+            throw new ServiceException(ErrorEnum.USERNAME_ERROR);
+        }
+
         return result;
     }
 }

@@ -20,8 +20,8 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 
-	@Value("${oauth2-server}")
-	private String oauth2Server;
+	@Value("${server-address}")
+	private String serverAddress;
 
 	@Resource
 	private TokenStore jwtTokenStore;
@@ -45,7 +45,7 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 				"/auth/token/authorize/login",
 				"/attachments/**"
 		};
-		http.logout().logoutSuccessUrl(oauth2Server + "/auth/logout").and()
+		http.logout().logoutSuccessUrl(serverAddress + "/auth/logout").and()
 				.authorizeRequests()
 				.antMatchers(ignoresUri)
 				.permitAll()

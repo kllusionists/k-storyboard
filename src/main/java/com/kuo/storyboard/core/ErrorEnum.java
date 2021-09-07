@@ -8,6 +8,7 @@ public enum ErrorEnum implements ErrorInfo {
 	// Api Error response
 	SUCCESS("200", "成功！"),
 	USERNAME_ERROR("401", "用户名不正确！"),
+	USERNAME_EMPTY("401", "用户名不能为空！"),
 	PASSWORD_ERROR("401", "密码不正确！"),
 	INTERNAL_SERVER_ERROR("500", "服务器异常，请稍后再试！"),
 	NULL_POINT_ERROR("501", "[Null_Point]服务器异常，请稍后再试！");

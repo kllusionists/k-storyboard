@@ -13,33 +13,12 @@ spring:
           driver-class-name: com.mysql.cj.jdbc.Driver
   profiles:
     active: dev
-#  mvc:
-#    static-path-pattern: /test/**
-#  web:
-#    resources:
-#      static-locations: /test/
-
-db-ip: localhost
 
 server:
   port: 9000
 
+db-ip: localhost
 jwt-key-value: com.kuo.storyboard
-
-oauth2-server: http://localhost:9000
-
-security:
-  oauth2:
-    client:
-      client-id: ypm-consumer-v1
-      client-secret: ypm-consumer-v1-secret
-      user-authorization-uri: ${oauth2-server}/oauth/authorize
-      access-token-uri: ${oauth2-server}/oauth/token
-    resource:
-      jwt:
-        key-uri: ${oauth2-server}/oauth/token_key
-        key-value: yps.ypm.oauth
-      token-info-uri: ${oauth2-server}/oauth/check_token
 
 
 ---
@@ -50,12 +29,14 @@ spring:
       on-profile: dev
 
 db-ip: localhost
+jwt-key-value: com.kuo.storyboard
+server-address: http://localhost:9000
 
 # 文件上传的服务器存放路径
 upload:
   base:
     server:
-      domain: http://192.168.10.19:5000/api/consumer/v1
+      domain: ${server-address}/file/
 
 
 ---
@@ -65,10 +46,12 @@ spring:
     activate:
       on-profile: docker
 
-db-ip: 172.16.142.199
+db-ip: channingkuo.synology.me
+jwt-key-value: com.kuo.storyboard
+server-address: http://channingkuo.synology.me:9000
 
 # 文件上传的服务器存放路径
 upload:
   base:
     server:
-      domain: http:/localhost/api
+      domain: ${server-address}/file/

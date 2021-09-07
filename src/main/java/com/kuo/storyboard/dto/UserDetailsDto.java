@@ -12,8 +12,12 @@ import java.util.List;
 public class UserDetailsDto {
 	private Long userId;
 	private String cellPhone;
+	/**
+	 * user_account
+	 */
 	private String userName;
 	private String password;
+	private String email;
 	private List<RoleDto> userRoleList;
 	private String realName;
 	private String avatarUrl;
