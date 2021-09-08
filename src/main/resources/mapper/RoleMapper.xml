@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.storyboard.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.kuo.storyboard.entity.Role">
+        <id column="sys_role_id" property="sysRoleId" />
+        <result column="role_name" property="roleName" />
+        <result column="role_code" property="roleCode" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="created_on" property="createdOn" />
+        <result column="updated_on" property="updatedOn" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sys_role_id, role_name, role_code, created_by, updated_by, created_on, updated_on
+    </sql>
+
+</mapper>

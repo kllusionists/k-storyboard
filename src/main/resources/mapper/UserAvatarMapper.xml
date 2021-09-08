@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.storyboard.mapper.UserAvatarMapper">
+    <resultMap id="BaseResultMap" type="com.kuo.storyboard.entity.UserAvatar">
+        <id column="sys_user_avatar_id" property="sysUserAvatarId" />
+        <result column="sys_user_id" property="sysUserId" />
+        <result column="avatar" property="avatar" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="created_on" property="createdOn" />
+        <result column="updated_on" property="updatedOn" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sys_user_avatar_id, sys_user_id, avatar, created_by, updated_by, created_on, updated_on
+    </sql>
+
+</mapper>

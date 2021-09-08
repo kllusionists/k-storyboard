@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kuo.storyboard.mapper.UserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.kuo.storyboard.entity.UserRole">
+        <id column="sys_user_role_id" property="sysUserRoleId" />
+        <result column="sys_user_id" property="sysUserId" />
+        <result column="sys_role_id" property="sysRoleId" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="created_on" property="createdOn" />
+        <result column="updated_on" property="updatedOn" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sys_user_role_id, sys_user_id, sys_role_id, created_by, updated_by, created_on, updated_on
+    </sql>
+
+    <select id="getSystemUserInfo" resultMap="SystemUserInfo" resultType="com.kuo.storyboard.dto.UserDetailsDto">
+        SELECT A.sys_user_id,
+               A.cell_phone,
+               A.user_name,
+               A.user_email,
+               A.user_account,
+               A.user_password,
+               C.sys_role_id,
+               C.role_code,
+               C.role_name
+        FROM sys_user A
+            LEFT JOIN sys_user_role B ON A.sys_user_id = B.sys_user_id
+            LEFT JOIN sys_role C ON B.sys_role_id = C.sys_role_id
+        WHERE A.user_account = #{_parameter}
+    </select>
+    <resultMap id="SystemUserInfo" type="com.kuo.storyboard.dto.UserDetailsDto">
+        <id column="sys_user_id" property="userId" />
+        <result column="cell_phone" property="cellPhone" />
+        <result column="user_name" property="realName" />
+        <result column="user_email" property="email" />
+        <result column="user_account" property="userName" />
+        <result column="user_password" property="password" />
+        <collection property="userRoleList" ofType="com.kuo.storyboard.dto.RoleDto">
+            <id column="sys_role_id" property="roleId" />
+            <result column="role_code" property="roleValue" />
+            <result column="role_name" property="roleName" />
+        </collection>
+    </resultMap>
+</mapper>
