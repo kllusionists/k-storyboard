@@ -63,6 +63,7 @@ public class AuthController {
 			if (null == result) {
 				return ResultGenerator.genFailResult(ErrorEnum.INTERNAL_SERVER_ERROR.getResultMessage());
 			}
+
 			if (StringUtils.isNotBlank(result.getString("error"))) {
 				throw new ServiceException("401", result.getString("error_description"));
 			}
